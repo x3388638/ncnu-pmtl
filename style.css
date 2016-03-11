@@ -1,0 +1,15 @@
+body {
+    background: #f9f9f9;
+}
+.sidebar-nav > .sidebar-brand {
+    height: 250px !important; 
+}
+.sidebar-nav li.active a {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+#logo {
+    margin-left: 20px;
+    border-radius: 5px;
+}
