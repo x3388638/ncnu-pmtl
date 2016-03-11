@@ -13,3 +13,11 @@ body {
     margin-left: 20px;
     border-radius: 5px;
 }
+#toggleSideBar {
+    position: absolute;
+    left: 0px;
+    top: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}

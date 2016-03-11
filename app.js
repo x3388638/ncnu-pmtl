@@ -47,11 +47,20 @@ var Content = React.createClass({
                 (<h1>hellllo worllld</h1>)
             ]
         };
-     }, 
+    }, 
+    toggleSideBar() {
+        $('#wrapper').toggleClass('toggled');
+        if($('#toggleSideBar').hasClass('glyphicon-menu-left')) {
+            $('#toggleSideBar').removeClass('glyphicon-menu-left').addClass('glyphicon-menu-right');
+        } else {
+            $('#toggleSideBar').removeClass('glyphicon-menu-right').addClass('glyphicon-menu-left');
+        }
+    }, 
     render() {
         return (
             <div id="page-content-wrapper">
                 <div className="container" id="main">
+                    <span className="glyphicon glyphicon-menu-left" id="toggleSideBar" aria-hidden="true" onClick={this.toggleSideBar}></span>
                     {this.state.content[this.props.tabIndex]}
                 </div>
             </div>
