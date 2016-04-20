@@ -58,7 +58,7 @@ var todoList = ( _ => {
 				console.log(data);
 				$this
 					.text((isDone ? 'Done' : 'Yet'))
-					.attr('data-status', (isDone ? 'Done' : 'Yet'))
+					.attr('data-status', (isDone ? 'done' : 'det'))
 					.parents('.tasks')
 					.removeClass('danger success')
 					.addClass(`${isDone ? 'success' : 'danger'}`)
