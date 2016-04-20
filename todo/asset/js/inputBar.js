@@ -16,27 +16,27 @@ var inputBar = ( _ => {
 	}
 
 	function _handleAddTask() {
-		if(document.cookie.length) {
-			var text = $inputWrap.find('#newTask').val();
-			if(text) {
-				$.ajax({
-					url: `${BASE_URL}tasks`, 
-					type: 'post', 
-					dataType: 'json', 
-					data: {
-						text
-					}, 
-					crossDomain: true, 
-					success: function(data) {
-						todoList.addTask(data)
-					}, 
-					error: function(jqXHR) {
-						console.dir(jqXHR);
-					}
-				});
-			}
-		} else {
-			alert('Select a list name first');
+		var text = $inputWrap.find('#newTask').val();
+		if(text) {
+			$.ajax({
+				url: `${BASE_URL}tasks`, 
+				type: 'post', 
+				dataType: 'json', 
+				contentType: "application/json; charset=utf-8",
+				data: JSON.stringify({
+					text
+				}), 
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true, 
+				success: function(data) {
+					todoList.addTask(data)
+				}, 
+				error: function(jqXHR) {
+					console.dir(jqXHR);
+				}
+			});
 		}
 	}
 

@@ -11,3 +11,11 @@
 #todoList .taskStatus {
 	width: 50px;
 }
+#todoList .btn-del {
+	color: red;
+	cursor: pointer;
+	display: none;
+}
+#todoList .tasks:hover .btn-del {
+	display: initial;
+}

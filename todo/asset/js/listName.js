@@ -15,15 +15,20 @@ var listName = ( _ => {
 		$listNameWrap.on('click.setList', '#btn-setList', handleSetList);
 	}
 
-	function handleSetList(listName = $listNameWrap.find('#listName').val()) {
+	function handleSetList() {
+		var listName = $listNameWrap.find('#listName').val();
 		if(listName) {
 			$.ajax({
-				url: `BASE_URL${tokens}`, 
+				url: `${BASE_URL}lists`, 
 				type: 'post', 
 				dataType: 'json', 
-				data: {
+				contentType: "application/json; charset=utf-8",
+				data: JSON.stringify({
 					listName
-				}, 
+				}), 
+				xhrFields: {
+					withCredentials: true
+				},
 				crossDomain: true, 
 				success: function(data) {
 					todoList.render(data.tasks);
