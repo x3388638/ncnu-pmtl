@@ -13,6 +13,7 @@ var todoList = ( _ => {
 
 	function _bindEvent() {
 		$list.on('click.del', '.btn-del', _handleDel);
+		$list.on('click.changeStatus', '.btn-status', _handleChangeStatus);
 	}
 
 	function _handleDel() {
@@ -36,15 +37,46 @@ var todoList = ( _ => {
 			}
 		});
 	}
+	function _handleChangeStatus() {
+		var $this = $(this);
+		var id = $this.parents('.tasks').attr('id');
+		var status = $this.attr('data-status');
+		var isDone = status == 'done' ? false : true;
+		$.ajax({
+			url: `${BASE_URL}tasks/${id}`, 
+			type: 'patch', 
+			dataType: 'json', 
+			contentType: "application/json; charset=utf-8",
+			xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true, 
+			data: JSON.stringify({
+				isDone
+			}), 
+			success: function(data) {
+				console.log(data);
+				$this
+					.text((isDone ? 'Done' : 'Yet'))
+					.attr('data-status', (isDone ? 'Done' : 'Yet'))
+					.parents('.tasks')
+					.removeClass('danger success')
+					.addClass(`${isDone ? 'success' : 'danger'}`)
+			}, 
+			error: function(jqXHR) {
+				console.dir(jqXHR);
+			}
+		});
+	}
 
 	function addTask(data) {
 		console.dir(data);
 		$list
 			.find('tbody')
 			.append(
-				`<tr id=${data.id} class="tasks">
+				`<tr id=${data.id} class="tasks danger">
 					<td class="taskStatus">
-						<button type="button" class="btn btn-default">Yet</button>
+						<button data-status="yet" type="button" class="btn btn-default btn-status">Yet</button>
 					</td>
 					<td class="taskName">
 						${data.text}
@@ -60,9 +92,9 @@ var todoList = ( _ => {
 			$list
 				.find('tbody')
 				.append(
-					`<tr id=${val.id} class="tasks">
+					`<tr id=${val.id} class="tasks ${val.isDone ? 'success' : 'danger'}">
 						<td class="taskStatus">
-							<button type="button" class="btn btn-default">${val.isDone ? 'Done' : 'Yet'}</button>
+							<button data-status=${val.isDone ? 'done' : 'yet'} type="button" class="btn btn-default btn-status">${val.isDone ? 'Done' : 'Yet'}</button>
 						</td>
 						<td class="taskName">
 							${val.text}
