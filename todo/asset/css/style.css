@@ -1,0 +1,13 @@
+.row {
+	margin-bottom: 10px;
+}
+#wrapper {
+	margin-top: 50px;
+}
+#todoList th, 
+#todoList td {
+	text-align: center;
+}
+#todoList .taskStatus {
+	width: 50px;
+}
